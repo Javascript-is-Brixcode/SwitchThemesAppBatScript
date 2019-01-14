@@ -6,7 +6,6 @@ echo Starting...
 echo Note: If any of the paths are left blank the examples will be used!
 echo Warning!: Put the bat script in the same folder with the switchthemes.exe file!
 echo.
-
 set /p name=What's the name of the theme pack? Keep it short:
 set /p auth=Who's the creator of this theme pack? Keep it short:
 set /p sav=Where do the final theme files need to be saved (enter a folder name) (example: FinalTheme):
@@ -15,25 +14,23 @@ if /I "%name%"=="" set name=UserTheme
 if /I "%auth%"=="" set auth=User
 if /I "%sav%"=="" set sav=UserTheme
 cls
-
 set /p home=Enter the full path to the image you'd like to convert into an nxtheme for the [HOME] applet (Keep blank if you don't want to inject the home menu) (example: Images\home.jpg):
 set /p lock=Enter the full path to the image you'd like to convert into an nxtheme for the [LOCK] applet (Keep blank if you don't want to inject the lock screen) (example: Images\lock.jpg):
 set /p set=Enter the full path to the image you'd like to convert into an nxtheme for the [SETTINGS] applet (Keep blank if you don't want to inject the settings menu) (example: Images\settings.jpg):
 set /p flaunch=Enter the full path to the image you'd like to convert into an nxtheme for the [ALL APPS] applet (Keep blank if you don't want to inject the all apps menu) (example: Images\allapps.jpg):
 cls
-
 set /p layloc=Enter the path to the layout folder (example: Layouts): 
 if /I "%layloc%"=="" set layloc=Layouts
 dir %layloc%\*.json
 echo. 
-
+echo Make sure you use the correct json for the applet you are theming.
+echo If you use the wrong one, your switch may not boot.
 set /p layhome=Enter the .json file you'd like to use for the [HOME] applet (example: SuchHm.json): 
 set /p laylock=Enter the .json file you'd like to use for the [LOCK] applet (example: SuchLk.json): 
 set /p layapps=Enter the .json file you'd like to use for the [FLAUNCH] applet (example: DogeFl.json): 
 if /I "%layhome%"=="" set layhome=SuchHm.json
 if /I "%laylock%"=="" set laylock=SuchLk.json
 if /I "%layapps%"=="" set layapps=DogeFl.json
-:List
 cls
 
 echo Layout HOME location = %layloc%\%layhome%
@@ -50,16 +47,13 @@ echo Theme Creator = %auth%
 echo Save location = %sav%
 echo.
 echo CHECK IF THESE PATHS LINE UP!
-set check=Y
-set /p check=If something is incorrect, type N to Correct your mistakes. This will restart the script, if you press enter on the questions you don't want changed they will keep their value.
+echo Enter "Y" to continue and build the theme, enter "N" to go back and edit parts.
+set /p check=If you don't want to change a part, leave it blank when editing... 
 if /I "%check%"=="n" goto Begin
 
-set /p check=Start building theme? (Y/N)
-if /I "%check%"=="n" goto List
 cls
 echo Building theme, if the switchthemes app opens, you've put in something incorrect!
-mkdir %sav%
-
+mkdir "%sav%"
 if /I "%home%"=="" goto emhome
 echo.
 echo Building HOME
@@ -92,4 +86,4 @@ echo.
 
 set /p yn=Done! Want to make another theme? (Y/N)
 if /I "%yn%"=="Y" goto begin
-if /I "%yn%"=="yes" goto begin
+if /I "%yn%"=="Yes" goto begin
